@@ -1,34 +1,29 @@
 FROM debian:bullseye-slim
 
-RUN dpkg --add-architecture i386 \
-    && apt-get update \
-    && apt-get upgrade -y \
-    && apt-get install -y --no-install-recommends curl wget file tar bzip2 gzip unzip bsdmainutils python3 util-linux ca-certificates \
-    binutils bc jq tmux netcat lib32gcc-s1 lib32stdc++6 lib32gcc-10-dev lib32stdc++6 libc6-i386 \
-    cpio distro-info libsdl2-2.0-0:i386 xz-utils iproute2 procps \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get update && apt-get install -y \
+    ca-certificates lib32gcc-s1 wget unzip procps iproute2 \
+    && rm -rf /var/lib/apt/lists/*
 
-### AcServer
-RUN useradd -m -s /bin/bash acserver
-USER acserver
+RUN mkdir -p /steamcmd && \
+    cd /steamcmd && \
+    wget http://media.steampowered.com/client/steamcmd_linux.tar.gz && \
+    tar -xvzf steamcmd_linux.tar.gz && \
+    rm steamcmd_linux.tar.gz
 
-WORKDIR /home/acserver
+ENV PATH="/steamcmd:${PATH}"
 
-RUN wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh acserver
+RUN mkdir -p /asm && \
+    cd /asm && \
+    wget https://github.com/JustaPenguin/assetto-server-manager/releases/download/v1.7.9/server-manager_v1.7.9.zip && \
+    unzip server-manager_v1.7.9.zip && \
+    rm server-manager_v1.7.9.zip
 
-ENV STEAM_USER=""
-ENV STEAM_PASS=""
-
-RUN mkdir -p lgsm/config-lgsm/acserver/ && \
-    echo "steamuser=\"${STEAM_USER}\"" > lgsm/config-lgsm/acserver/common.cfg && \
-    echo "steampass='${STEAM_PASS}'" >> lgsm/config-lgsm/acserver/common.cfg
-
-RUN ./acserver auto-install --silent
+WORKDIR /asm/linux
 
 EXPOSE 8081/udp
 EXPOSE 9600/udp
+# Port in config.yml 0.0.0.0:80
+EXPOSE 80
 
-VOLUME /home/acserver
-
-CMD echo "Y" | ./acserver d
+# Commande par défaut pour exécuter SteamCMD
+CMD ["./server-manager"]
