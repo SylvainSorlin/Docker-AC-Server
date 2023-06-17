@@ -28,8 +28,7 @@ cd Docker-AC-Server
 docker build -t assetto-corsa-server .
 ```
 
-5. Create and configure your config.yml
-Follow [config.yml](https://github.com/JustaPenguin/assetto-server-manager/blob/master/cmd/server-manager/config.example.yml), if needed, modify the port in the Dockerfile "EXPOSE 80"
+5. Create and configure your [config.yml](https://github.com/JustaPenguin/assetto-server-manager/blob/master/cmd/server-manager/config.example.yml), if needed, modify the port in the Dockerfile "EXPOSE 80"
 
 7. Run a Docker container based on the built image:
 ```bash
