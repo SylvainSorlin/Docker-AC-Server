@@ -32,7 +32,7 @@ docker build -t assetto-corsa-server .
 
 7. Run a Docker container based on the built image:
 ```bash
-docker run -d -p 8081:8081/udp -p 9600:9600/udp YOUR_PATH/config.yml:/asm/linux/config.yml assetto-corsa-server
+docker run -d -p 8081:8081 -p 9600:9600 -p 9600:9600/udp -p 80:80 YOUR_PATH/config.yml:/asm/linux/config.yml assetto-corsa-server
 ```
 8. Open url to serve-manager
 http://localhost:80
@@ -62,8 +62,9 @@ services:
       - "traefik.http.routers.acserver.rule=Host(`acserver.domain.fr`)"
       - "traefik.http.routers.acserver.tls.certresolver=myresolver"
     ports:
+      - "8081:8081"
+      - "9600:9600"
       - "9600:9600/udp"
-      - "8081:8081/udp"
     networks:
       - traefik_default
     volumes: 
