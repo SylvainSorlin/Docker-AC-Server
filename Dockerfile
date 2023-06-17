@@ -20,7 +20,8 @@ RUN mkdir -p /asm && \
 
 WORKDIR /asm/linux
 
-EXPOSE 8081/udp
+EXPOSE 8081
+EXPOSE 9600
 EXPOSE 9600/udp
 # Port in config.yml 0.0.0.0:80
 EXPOSE 80
