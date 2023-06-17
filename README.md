@@ -5,9 +5,7 @@
   <img src="https://img.shields.io/badge/Docker-%231572B6.svg?&style=flat-square&logo=docker&logoColor=white" alt="Docker">
 </p>
 
-<p align="center">
-  <strong>Run an Assetto Corsa server using [Assetto Server Manager](https://github.com/JustaPenguin/assetto-server-manager) in a Docker container.</strong>
-</p>
+**Run an Assetto Corsa server using [Assetto Server Manager](https://github.com/JustaPenguin/assetto-server-manager) in a Docker container.**
 
 ## Instructions
 
