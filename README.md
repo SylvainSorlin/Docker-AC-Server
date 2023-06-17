@@ -18,7 +18,7 @@ Follow these steps to run the Assetto Corsa server using Docker:
 2. Clone this repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/your-repository.git
+git clone https://github.com/SylvainSorlin/Docker-AC-Server.git
 ```
 
 3. Navigate to Docker-AC-Server repository:
@@ -39,7 +39,7 @@ docker build -t assetto-corsa-server .
 
 6. Run a Docker container based on the built image:
 ```bash
-docker run -d -p 8766:8766/udp -p 27015:27015/udp assetto-corsa-server
+docker run -d -p 8081:8081/udp -p 9600:9600/udp assetto-corsa-server
 ```
 
 ## Customization
