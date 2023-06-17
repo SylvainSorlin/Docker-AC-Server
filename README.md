@@ -37,5 +37,39 @@ docker run -d -p 8081:8081/udp -p 9600:9600/udp YOUR_PATH/config.yml:/asm/linux/
 8. Open url to serve-manager
 http://localhost:80
 
+## docker-compose
+If you don't want or don't have "Traefik", you just need to comment out the "labels" section and add the port you expose in your Dockerfile and your config.yml. 
+For your information, I'm using a Traefik+Portainer configuration.
+
+```yaml
+version: "3"
+
+networks:
+  traefik_default:
+    external: true
+
+volumes:
+  ac_server-install:
+    driver: local
+
+services:
+  acserver:
+    image: ac-server:latest
+    restart: always
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.acserver.entrypoints=websecure"
+      - "traefik.http.routers.acserver.rule=Host(`acserver.domain.fr`)"
+      - "traefik.http.routers.acserver.tls.certresolver=myresolver"
+    ports:
+      - "9600:9600/udp"
+      - "8081:8081/udp"
+    networks:
+      - traefik_default
+    volumes: 
+      - ac_server-install:/assetto
+      - YOUR_PATH/config.yml:/asm/linux/config.yml
+```
+
 ## License
 This project is licensed under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html).
