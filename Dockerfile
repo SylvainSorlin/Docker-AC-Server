@@ -25,8 +25,8 @@ RUN mkdir -p lgsm/config-lgsm/acserver/ && \
 
 RUN ./acserver auto-install --silent
 
-EXPOSE 8766/udp
-EXPOSE 27015/udp
+EXPOSE 8081/udp
+EXPOSE 9600/udp
 
 VOLUME /home/acserver
 
